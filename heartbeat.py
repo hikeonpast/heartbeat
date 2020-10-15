@@ -47,25 +47,33 @@ def update_hue(hue_color, hue_brightness):
                 hue_brightness = brightness_max
 
 	#write update
-	hue_payload = {"on":True, "sat":255, "hue": hue_color, "bri": hue_brightness}
-
+	#hue_payload = {"on":True, "sat":255, "hue": hue_color, "bri": hue_brightness}
+	hue_payload = {"bri": hue_brightness}
+	
 	try:
 		r = requests.put(hue_hub_url, json.dumps(hue_payload), timeout=1)
 	except: 
 		print ("HTTP error; retrying")
 
 while True:
-	loops = 100
-
 	#defaults
 	brightness = 0
 	color = 0
+	loops = 50
+
+	#initialize bulb; try to limit verbosity on each update
+	hue_payload = {"on":True, "sat":255, "hue": color, "bri": brightness}
+
+	try:
+		r = requests.put(hue_hub_url, json.dumps(hue_payload), timeout=1)
+	except: 
+		print ("HTTP error")	
 
 	# x intercepts for sawtooth heartbeat
 	x0 = 0
-	x1 = 20
-	x2 = 40
-	x3 = 60
+	x1 = 8
+	x2 = 16
+	x3 = 24
 	x4 = loops
 
 	# y intercepts for sawtooth heartbeat
@@ -87,5 +95,5 @@ while True:
 		#print("x: {} Brightness: {}".format(x, brightness))
 
 		update_hue(color, brightness)
-		time.sleep(0.03)
+		time.sleep(0.025)
 
