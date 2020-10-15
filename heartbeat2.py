@@ -35,7 +35,7 @@ def update_hue(hue_color, hue_brightness, transition_centiseconds):
 
 	#static vars
 	hue_color_min = 0
-	hue_color_max = 21845
+	hue_color_max = 65535
 	brightness_min = 0
 	brightness_max = 255
 	transition_min = 0
@@ -67,7 +67,7 @@ def update_hue(hue_color, hue_brightness, transition_centiseconds):
 while True:
 	#defaults
 	brightness = 0
-	color = 0
+	color = 58000
 	transition_time = 0
 
 	#time for full loop in ms
@@ -89,23 +89,23 @@ while True:
 		if x == x0:
 			brightness = peak_brightness
 			transition_time = (x1-x0)/100
-			print("x: {} brightness: {} transition: {}".format(x, brightness, transition_time))
-			update_hue(color, brightness, transition_time)
+			#print("x: {} brightness: {} transition: {}".format(x, brightness, transition_time))
+			update_hue(53000, brightness, transition_time)
 		elif x == x1:
 			brightness = interim_brightness
 			transition_time = (x2-x1)/100
-			print("x: {} brightness: {} transition: {}".format(x, brightness, transition_time))
-			update_hue(color, brightness, transition_time)
+			#print("x: {} brightness: {} transition: {}".format(x, brightness, transition_time))
+			update_hue(0, brightness, transition_time)
 		elif x == x2:
 			brightness = peak_brightness
 			transition_time = (x3-x2)/100
-			print("x: {} brightness: {} transition: {}".format(x, brightness, transition_time))
-			update_hue(color, brightness, transition_time)
+			#print("x: {} brightness: {} transition: {}".format(x, brightness, transition_time))
+			update_hue(53000, brightness, transition_time)
 		elif x == x3:
 			brightness = end_brightness
 			transition_time = (x4-x3)/100
-			print("x: {} brightness: {} transition: {}".format(x, brightness, transition_time))
-			update_hue(color, brightness, transition_time)
+			#print("x: {} brightness: {} transition: {}".format(x, brightness, transition_time))
+			update_hue(0, brightness, transition_time)
 
 		if x % 10 == 0:
 			time.sleep(0.01)
